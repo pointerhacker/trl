@@ -1235,8 +1235,8 @@ class GRPOTrainer(BaseTrainer):
                 all_prompt_ids = [ids for ids in all_prompt_ids for _ in range(num_generations)]
 
                 process_slice = slice(
-                    self.accelerator.process_index * len(prompts),
-                    (self.accelerator.process_index + 1) * len(prompts),
+                    self.accelerator.process_index * len(prompts) * self.num_generations,
+                    (self.accelerator.process_index + 1) * len(prompts) * self.num_generations,
                 )
                 prompt_ids = all_prompt_ids[process_slice]
                 completion_ids = all_completion_ids[process_slice]
